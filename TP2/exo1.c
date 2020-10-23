@@ -1,14 +1,32 @@
-void do_work( unsigned int duration);
+/*Correction MODULE SYSTEMES TEMPS REEL - EFREI - CALCADO FABIEN*/
 
-int main(int argc, char** argv) {
-    do_work(1000);
-    return 0;
+#include <stdio.h>
+#include <signal.h>
+
+#define CONSTANT_PROC 3500000 //A determiner pour votre machine ! ==>
+//peut etre fait de maniere automatique mais ce n'est pas le sujet du TP
+
+void do_work(unsigned int nb_secondes);
+
+/*fonction simulant un travail a effectuer (attente active)*/
+void do_work(unsigned int nb_secondes)
+{
+	unsigned int i = CONSTANT_PROC * nb_secondes; //attention a ne pas utiliser un int pour eviter un overflow
+
+	while(i>0)
+	{
+		asm volatile("nop");
+		i--;
+	}
+
+	return;
 }
 
-void do_work( unsigned int duration){
-    int i;
-    for(i = 0; i<duration; ++i)
-        asm volatile ("nop");
+/* MAIN */
+int main()
+{
+    //ne pas faire d'affichage avec un printf("") sinon il y aura des fluctuations encore plus importantes sur le temps d'ex�cution
+    do_work(4000);
+
+	return 0;
 }
-
-
