@@ -7,8 +7,7 @@ typedef struct queue {
 void init_queue(queue_t*);
 int push_queue(queue_t *, int);
 int pop_queue(queue_t *, int *);
-void display_queue(queue_t *);
-void display_queue_recursive(queue_t* q, maillon_t* qCurr);
+int is_filled_with_only_one_event(queue_t* q);
 int is_empty(queue_t* q);
 
 //Initialise la file
@@ -29,6 +28,11 @@ int pop_queue(queue_t* q, int* pval) {
     if(*pval == -999)
         return 0;
     return 1;
+}
+
+//Determines wether the queue is filled with only one event or not
+int is_filled_with_only_one_event(queue_t* q){
+    return q->bottom != NULL && q->bottom->suiv == NULL;
 }
 
 //Determines wether the queue is empty or not

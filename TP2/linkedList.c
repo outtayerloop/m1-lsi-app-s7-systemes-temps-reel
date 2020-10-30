@@ -58,7 +58,6 @@ maillon_t*supprimer_debut(maillon_t *pliste, int *pval) {
             free(pliste);
             return NULL;
         }
-        printf("La liste vide ne peut etre supprimee\n\n");
         //Valeur -999 = n'importe quoi, quand on s'amuse à afficher la valeur supprimée d'une liste vide
         *pval = -999;
         return NULL;

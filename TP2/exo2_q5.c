@@ -36,6 +36,9 @@ int main(int argc, char** argv){
 void process_signal()
 {
     push_queue(&event_queue, SIGUSR1_NUM);
+    if(!is_filled_with_only_one_event(&event_queue) && !is_empty(&event_queue)){
+        printf("Un signal est arrive trop tot\n");
+    }
     return;
 }
 
