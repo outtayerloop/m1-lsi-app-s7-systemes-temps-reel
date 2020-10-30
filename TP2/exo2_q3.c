@@ -9,8 +9,8 @@ void do_work();
 
 int main(int argc, char** argv){
 
-    int parent_pid = getpid();
-    printf("Mon PID est : %d\n", parent_pid);
+    int pid = getpid();
+    printf("Mon PID est : %d\n", pid);
 
     //Handler pour le signal SIGUSR1
     signal(SIGUSR1_NUM, do_work);
