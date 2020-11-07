@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <signal.h>
 #include <unistd.h>
+#include <stdlib.h>
 
-#define SIGUSR1_NUM 10
-#define CONSTANT_PROC 220000
+#define CONSTANT_PROC 770000000
 
 void do_work();
 
@@ -12,7 +12,9 @@ int main(int argc, char** argv){
     printf("Mon PID est : %d\n", getpid());
 
     //Handler pour le signal SIGUSR1
-    signal(SIGUSR1_NUM, do_work);
+    if(signal(SIGUSR1, do_work) == SIG_ERR){
+        exit(EXIT_FAILURE);
+    }
 
     //Mise en attente du signal
     int signal_received = pause();
@@ -27,14 +29,12 @@ int main(int argc, char** argv){
 
 void do_work()
 {
-    unsigned int nb_millisecondes = 4000;
-    unsigned int i = CONSTANT_PROC * nb_millisecondes; //attention a ne pas utiliser un int pour eviter un overflow
+    unsigned int nb_secondes = 1u;
+    unsigned int i = CONSTANT_PROC * nb_secondes;
 
     while(i>0)
     {
         asm volatile("nop");
         i--;
     }
-
-    return;
 }
