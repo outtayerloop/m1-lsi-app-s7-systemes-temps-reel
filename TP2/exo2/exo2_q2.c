@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#define CONSTANT_PROC 770000000
+#define CONSTANT_PROC 230000000
 
 void do_work();
 

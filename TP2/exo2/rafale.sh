@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for (( var = 0; var < 5; var++))
+for (( var = 0; var < 5; var++ ))
 do
-	kill -s sigusr1 2611
+	kill -s SIGUSR1 306
 done

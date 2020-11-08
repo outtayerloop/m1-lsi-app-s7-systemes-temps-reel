@@ -1,6 +1,6 @@
 /*Correction MODULE SYSTEMES TEMPS REEL - EFREI - CALCADO FABIEN*/
 
-#define CONSTANT_PROC 770000000 //A determiner pour votre machine ! ==>
+#define CONSTANT_PROC 230000000 //A determiner pour votre machine ! ==>
 //peut etre fait de maniere automatique mais ce n'est pas le sujet du TP
 
 void do_work(unsigned int nb_secondes);
@@ -23,7 +23,7 @@ void do_work(unsigned int nb_secondes)
 int main()
 {
     //ne pas faire d'affichage avec un printf("") sinon il y aura des fluctuations encore plus importantes sur le temps d'execution
-    do_work(2u);
+    do_work(1u);
 
 	return 0;
 }
