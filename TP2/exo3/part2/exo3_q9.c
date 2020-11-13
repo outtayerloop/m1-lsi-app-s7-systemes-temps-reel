@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define CONSTANT_PROC 115000
+#define CONSTANT_PROC 57500
 
 struct sigevent* init_sevp(struct sigevent* sevp);
 struct itimerspec* init_timer_spec(struct itimerspec* new_value, unsigned int period);
@@ -15,14 +15,16 @@ void execute_task_loop();
 
 int main(int argc, char** argv){
 
-    build_timer(12u);
+    build_timer(1u);
 
     // Handler pour le signal SIGUSR1
     if(signal(SIGUSR1, execute_task_loop) == SIG_ERR){
         exit(EXIT_FAILURE);
     }
 
-    while(1){}
+    while(1){
+        execute_task_loop();
+    }
 
     return 0;
 }

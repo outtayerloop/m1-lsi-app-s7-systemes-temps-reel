@@ -3,16 +3,14 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#define CONSTANT_PROC 230000000
-
-void do_work();
+void handle_signal();
 
 int main(int argc, char** argv){
 
     printf("Mon PID est : %d\n", getpid());
 
     //Handler pour le signal SIGUSR1
-    if(signal(SIGUSR1, do_work) == SIG_ERR){
+    if(signal(SIGUSR1, handle_signal) == SIG_ERR){
         exit(EXIT_FAILURE);
     }
 
@@ -27,14 +25,6 @@ int main(int argc, char** argv){
     return 0;
 }
 
-void do_work()
-{
-    unsigned int nb_secondes = 1u;
-    unsigned int i = CONSTANT_PROC * nb_secondes;
-
-    while(i>0)
-    {
-        asm volatile("nop");
-        i--;
-    }
+void handle_signal(){
+    printf("SIGUSR1 received\n");
 }
