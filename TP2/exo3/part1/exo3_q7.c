@@ -62,7 +62,7 @@ void set_timer(timer_t timer_id) {
     timer_spec = init_timer_spec(timer_spec);
 
     //Parametrage de l'intervalle et de l'instant d'expiration du timer
-    if(timer_settime(timer_id, 0, timer_spec, NULL)  == -1){
+    if(timer_settime(timer_id, 0, timer_spec , NULL)  == -1){
         perror("timer_settime");
         exit(EXIT_FAILURE);
     }
