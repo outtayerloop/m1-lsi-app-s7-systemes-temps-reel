@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define CONSTANT_PROC 115000
+#define CONSTANT_PROC 230000000
 
 void do_work_in_milliseconds(unsigned int nb_millisecondes);
 void execute_task_loop();
@@ -33,7 +33,7 @@ void execute_task_loop(){
 
 void do_work_in_milliseconds(unsigned int nb_millisecondes) {
 
-    unsigned int i = CONSTANT_PROC * nb_millisecondes;
+    unsigned int i = CONSTANT_PROC * (unsigned int)(nb_millisecondes / 1000);
 
     while(i>0)
     {

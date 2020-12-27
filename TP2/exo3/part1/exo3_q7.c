@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define CONSTANT_PROC 770000
+#define CONSTANT_PROC 115000
 
 struct sigevent* init_sevp(struct sigevent* sevp);
 struct itimerspec* init_timer_spec(struct itimerspec* new_value);

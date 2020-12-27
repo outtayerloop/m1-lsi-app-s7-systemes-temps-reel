@@ -2,31 +2,64 @@
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
-#define CONSTANT_PROC 57500
+#define CONSTANT_PROC 230000000
+
+#define STUDY_PERIOD 12
+
+/**
+ * Les definitions suivantes representent T2, T3 et T4.
+ * T3_1_3 signifie duree d'execution d'1/3 de T3, idem pour les notations semblables.
+ */
+
+#define T2() do_work_in_milliseconds(333u)
+#define T3() do_work_in_milliseconds(1000u)
+#define T3_1_3() do_work_in_milliseconds(333u)
+#define T3_2_3() do_work_in_milliseconds(666u)
+#define T4_1_2() do_work_in_milliseconds(1000u)
+#define T4_1_3() do_work_in_milliseconds(666u)
+#define T4_1_6() do_work_in_milliseconds(333u)
 
 struct sigevent* init_sevp(struct sigevent* sevp);
 struct itimerspec* init_timer_spec(struct itimerspec* new_value, unsigned int period);
-void do_work_in_milliseconds(unsigned int nb_millisecondes);
+void do_work_in_milliseconds(unsigned int seconds);
 timer_t get_timer_id();
 void set_timer(timer_t timer_id, unsigned int period);
 void build_timer(unsigned int period);
-void execute_task_loop();
+void empty_handler();
+void handle_task_loop();
+void task_loop_t0();
+void task_loop_t1();
+void task_loop_t2();
+void task_loop_t3();
+void task_loop_t4();
+void task_loop_t5();
+void task_loop_t6();
+void task_loop_t7();
+void task_loop_t8();
+void task_loop_t9();
+void task_loop_t10();
+void task_loop_t11();
+
+/**
+ * Compteur artificiel du nombre de secondes passees.
+ */
+int cpt = 0;
 
 int main(int argc, char** argv){
 
     build_timer(1u);
 
     // Handler pour le signal SIGUSR1
-    if(signal(SIGUSR1, execute_task_loop) == SIG_ERR){
+    if(signal(SIGUSR1, empty_handler) == SIG_ERR){
         exit(EXIT_FAILURE);
     }
 
     while(1){
-        execute_task_loop();
+        handle_task_loop();
+        pause();
     }
-
-    return 0;
 }
 
 void build_timer(unsigned int period) {
@@ -88,28 +121,102 @@ struct itimerspec* init_timer_spec(struct itimerspec* new_value, unsigned int pe
 
 }
 
-void execute_task_loop(){
-    do_work_in_milliseconds(333u);
-    do_work_in_milliseconds(1000u);
-    do_work_in_milliseconds(2000u);
-    do_work_in_milliseconds(333u);
-    do_work_in_milliseconds(1000u);
-    do_work_in_milliseconds(333u);
-    do_work_in_milliseconds(2000u);
-    do_work_in_milliseconds(333u);
-    do_work_in_milliseconds(1000u);
-    do_work_in_milliseconds(333u);
-    do_work_in_milliseconds(2000u);
-    do_work_in_milliseconds(333u);
-    do_work_in_milliseconds(1000u);
-    printf("task loop done\n");
+void empty_handler(){}
+
+void handle_task_loop(){
+    if(cpt % STUDY_PERIOD == 0)
+        task_loop_t0();
+    else if(cpt % STUDY_PERIOD == 1)
+        task_loop_t1();
+    else if(cpt % STUDY_PERIOD == 2)
+        task_loop_t2();
+    else if(cpt % STUDY_PERIOD == 3)
+        task_loop_t3();
+    else if(cpt % STUDY_PERIOD == 4)
+        task_loop_t4();
+    else if(cpt % STUDY_PERIOD == 5)
+        task_loop_t5();
+    else if(cpt % STUDY_PERIOD == 6)
+        task_loop_t6();
+    else if(cpt % STUDY_PERIOD == 7)
+        task_loop_t7();
+    else if(cpt % STUDY_PERIOD == 8)
+        task_loop_t8();
+    else if(cpt % STUDY_PERIOD == 9)
+        task_loop_t9();
+    else if(cpt % STUDY_PERIOD == 10)
+        task_loop_t10();
+    else{
+        task_loop_t11();
+        printf("task loop done\n");
+    }
+    ++cpt;
 }
 
+/**
+ * Les fonctions suivantes representent t (temps en secondes) de 0 à 11 sur la periode d'etude de 12 secs.
+ */
 
+void task_loop_t0(){
+    T2();
+    T3_2_3();
+}
 
-void do_work_in_milliseconds(unsigned int nb_millisecondes) {
+void task_loop_t1(){
+    T3_1_3();
+    T4_1_3();
+}
 
-    unsigned int i = CONSTANT_PROC * nb_millisecondes;
+void task_loop_t2(){
+    T4_1_2();
+}
+
+void task_loop_t3(){
+    T4_1_6();
+    T2();
+    T3_1_3();
+}
+
+void task_loop_t4(){
+    T3_2_3();
+    T2();
+}
+
+void task_loop_t5(){
+    T4_1_2();
+}
+
+void task_loop_t6(){
+    T4_1_2();
+}
+
+void task_loop_t7(){
+    T2();
+    T3_2_3();
+}
+
+void task_loop_t8(){
+    T3_1_3();
+    T2();
+    T4_1_6();
+}
+
+void task_loop_t9(){
+    T4_1_2();
+}
+
+void task_loop_t10(){
+    T4_1_3();
+    T2();
+}
+
+void task_loop_t11(){
+    T3();
+}
+
+void do_work_in_milliseconds(unsigned int seconds) {
+
+    unsigned int i = CONSTANT_PROC * (unsigned int)(seconds / 1000);
 
     while(i>0)
     {
