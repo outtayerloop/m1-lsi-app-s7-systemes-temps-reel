@@ -214,9 +214,9 @@ void task_loop_t11(){
     T3();
 }
 
-void do_work_in_milliseconds(unsigned int seconds) {
+void do_work_in_milliseconds(unsigned int milliseconds) {
 
-    unsigned int i = CONSTANT_PROC * (unsigned int)(seconds / 1000);
+    unsigned int i = CONSTANT_PROC * (unsigned int)(milliseconds / 1000);
 
     while(i>0)
     {
