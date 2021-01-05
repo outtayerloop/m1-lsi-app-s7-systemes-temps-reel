@@ -224,6 +224,14 @@ void do_work_in_milliseconds(unsigned int milliseconds) {
             i--;
         }
     }
+    else if(milliseconds == 666u){
+        i = 472860000u; // 0.666 * CONSTANT_PROC valant 710000000
+        while(i > 0)
+        {
+            asm volatile("nop");
+            i--;
+        }
+    }
     else{
         i = CONSTANT_PROC * (milliseconds / 1000u);
         while(i > 0)
