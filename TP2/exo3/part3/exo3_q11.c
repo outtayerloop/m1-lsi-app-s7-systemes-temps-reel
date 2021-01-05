@@ -6,7 +6,7 @@
 #define THREAD_NUMBER 3
 #define P(x) sem_wait(x)
 #define V(x) sem_post(x)
-#define CONSTANT_PROC 230000000
+#define CONSTANT_PROC 710000000
 #define SEMAPHORE_T2 (sem_t*)semaphores
 #define SEMAPHORE_T3 (sem_t*)semaphores+1
 #define SEMAPHORE_T4 (sem_t*)semaphores+2
@@ -67,7 +67,7 @@ pthread_t* get_threads(sem_t* semaphores){
 void await_threads(pthread_t* threads){
     for(int i = 0; i < THREAD_NUMBER; ++i){
         if(pthread_join(threads[i], NULL) != 0){
-            printf("pthread_join pour t1\n");
+            printf("pthread_join error\n");
             exit(EXIT_FAILURE);
         }
     }
@@ -112,7 +112,6 @@ void* handle_task_3(void* semaphores){
         T3();
         printf("task loop done\n");
         release_semaphore(SEMAPHORE_T2);
-        lock_semaphore(SEMAPHORE_T3);
     }
     return NULL;
 }
@@ -128,7 +127,6 @@ void* handle_task_4(void* semaphores){
         lock_semaphore(SEMAPHORE_T4);
         T4();
         release_semaphore(SEMAPHORE_T2);
-        lock_semaphore(SEMAPHORE_T4);
     }
     return NULL;
 }
@@ -160,12 +158,21 @@ void release_semaphore(sem_t* semaphore){
 }
 
 void do_work_in_milliseconds(unsigned int milliseconds) {
-
-    unsigned int i = CONSTANT_PROC * (unsigned int)(milliseconds / 1000);
-
-    while(i>0)
-    {
-        asm volatile("nop");
-        i--;
+    unsigned int i;
+    if(milliseconds == 333u){
+        i = 236430000u; // 0.333 * CONSTANT_PROC valant 710000000
+        while(i > 0)
+        {
+            asm volatile("nop");
+            i--;
+        }
+    }
+    else{
+        i = CONSTANT_PROC * (milliseconds / 1000u);
+        while(i > 0)
+        {
+            asm volatile("nop");
+            i--;
+        }
     }
 }

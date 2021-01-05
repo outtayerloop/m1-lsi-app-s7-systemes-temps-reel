@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include "queue.c"
 
-#define CONSTANT_PROC 230000000
+#define CONSTANT_PROC 710000000
 
 void do_work();
 

@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#define CONSTANT_PROC 230000000
+#define CONSTANT_PROC 710000000
 
 #define STUDY_PERIOD 12
 
@@ -215,12 +215,21 @@ void task_loop_t11(){
 }
 
 void do_work_in_milliseconds(unsigned int milliseconds) {
-
-    unsigned int i = CONSTANT_PROC * (unsigned int)(milliseconds / 1000);
-
-    while(i>0)
-    {
-        asm volatile("nop");
-        i--;
+    unsigned int i;
+    if(milliseconds == 333u){
+        i = 236430000u; // 0.333 * CONSTANT_PROC valant 710000000
+        while(i > 0)
+        {
+            asm volatile("nop");
+            i--;
+        }
+    }
+    else{
+        i = CONSTANT_PROC * (milliseconds / 1000u);
+        while(i > 0)
+        {
+            asm volatile("nop");
+            i--;
+        }
     }
 }

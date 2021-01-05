@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#define CONSTANT_PROC 115000
+#define CONSTANT_PROC 355000000
 
 void do_work();
 
@@ -18,8 +18,8 @@ int main(int argc, char** argv){
 
 void do_work() {
 
-    unsigned int nb_millisecondes = 500u;
-    unsigned int i = CONSTANT_PROC * nb_millisecondes;
+    unsigned int seconds = 1u;
+    unsigned int i = CONSTANT_PROC * seconds;
 
     while(i>0)
     {
