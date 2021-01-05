@@ -9,8 +9,8 @@
 #define STUDY_PERIOD 12
 
 /**
- * Les definitions suivantes representent T2, T3 et T4.
- * T3_1_3 signifie duree d'execution d'1/3 de T3, idem pour les notations semblables.
+ * Les definitions suivantes representent T2, handle_task_3 et handle_task_4.
+ * T3_1_3 signifie duree d'execution d'1/3 de handle_task_3, idem pour les notations semblables.
  */
 
 #define T2() do_work_in_milliseconds(333u)
