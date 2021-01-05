@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#define CONSTANT_PROC 710000000
+#define CONSTANT_PROC 355000000
 
 #define STUDY_PERIOD 12
 
